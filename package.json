@@ -1,7 +1,7 @@
 {
   "name": "hpi",
   "version": "0.0.1",
-  "description": "",
+  "description": "Super basic API client for HPI's automotive checks",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,5 +11,13 @@
   "dependencies": {
     "request": "~2.34.0",
     "xml2js": "~0.4.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/riskpenguin/node-hpi.git"
+  },
+  "author": "Richard Marr",
+  "bugs": {
+    "url": "https://github.com/riskpenguin/node-hpi/issues"
+  },
 }
