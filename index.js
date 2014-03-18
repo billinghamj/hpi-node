@@ -42,6 +42,7 @@ exports.performHpiCheck = function( reg, config, callback ){
 		} else {
 			console.log('error: '+ status)
 			console.log(body)
+			callback(new Error("HPI returned status code "+status));
 		}
 	});
 
