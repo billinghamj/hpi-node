@@ -56,7 +56,10 @@ exports.parse = function( raw, callback ){
 		if ( !result ) return callback(new Error("Failed to parse JSON, not sure why this might happen"));
 		
 		try {
-			var result =  result['soapenv:Envelope']['soapenv:Body'][0]['ns1:EnquiryResponse'][0]['ns1:RequestResults'][0]['ns1:Asset'][0]['ns1:PrimaryAssetData'][0];
+			
+			if ( config.debug ) config.debug( result );
+			
+			result =  result['soapenv:Envelope']['soapenv:Body'][0]['ns1:EnquiryResponse'][0]['ns1:RequestResults'][0]['ns1:Asset'][0]['ns1:PrimaryAssetData'][0];
 		
 			var cleaned = {
 				make : result['ns1:DVLA'][0]['ns1:Make'][0]['ns1:Description'][0],
@@ -69,9 +72,13 @@ exports.parse = function( raw, callback ){
 				engine_size : result['ns1:DVLA'][0]['ns1:Engine'][0]['ns1:Size'][0],
 				engine_no : result['ns1:DVLA'][0]['ns1:Engine'][0]['ns1:Number'][0],
 				fuel : result['ns1:DVLA'][0]['ns1:Engine'][0]['ns1:Fuel'][0]['ns1:Description'][0],
+				year : result['ns1:KeyDates'][0]['ns1:Manufactured'][0]['ns1:Year'][0],
+				doors = result['ns1:SMMT'][0]['ns1:Body'][0]['ns1:Description'][0],
+				transmission = result['ns1:SMMT'][0]['ns1:Transmission'][0]['ns1:Description'][0],
 				//keepers_changed : result['ns1:DVLA'][0]['ns1:Keepers'][0]['ns1:LastChangeOfKeeperDate'][0],
 				//keepers : result['ns1:DVLA'][0]['ns1:Keepers'][0],
 				//keydates : result['ns1:DVLA'][0]['ns1:KeyDates'][0],
+				isImported : result['ns1:KeyDates'][0]['ns1:IsImported'][0],
 				northernIreland : result['ns1:DVLA'][0]['ns1:IsFromNorthernIreland'][0],
 				/*checks : {
 					plate_transfers : result['ns1:FullCheck'][0]['ns1:PlateTransfers'][0]['$']['xsi:nil'] == "1",
@@ -85,8 +92,6 @@ exports.parse = function( raw, callback ){
 				groupSuffix : result['ns1:TranslatePlus'][0]['ns1:InsuranceGroupSuffix'][0],
 				securityCode : result['ns1:TranslatePlus'][0]['ns1:SecurityCode'][0],
 			};
-			
-			console.log(JSON.stringify(result,null,'\t'));
 			
 			// Default case - Assume one car at a time
 			return callback( undefined, cleaned ); 
