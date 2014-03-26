@@ -51,18 +51,18 @@ exports.performHpiCheck = function( reg, config, callback ){
 exports.parse = function( raw, config, callback ){
 	
 	var parser = new require('xml2js').Parser();
-	parser.parseString( raw, function (err, result) {
+	parser.parseString( raw, function (err, envelope ) {
 		if ( err ) return callback(err);
-		if ( !result ) return callback(new Error("Failed to parse JSON, not sure why this might happen"));
+		if ( !envelope ) return callback(new Error("Failed to parse JSON, not sure why this might happen"));
 		
 		try {
 			
-			if ( config.debug ) config.debug( result );
+			if ( config.debug ) config.debug( envelope );
 			
 			try{
 				
-				result =  result['soapenv:Envelope']['soapenv:Body'][0]['ns1:EnquiryResponse'][0]['ns1:RequestResults'][0]['ns1:Asset'][0]['ns1:PrimaryAssetData'][0];
-			
+				var result = get( envelope['soapenv:Envelope']['soapenv:Body'][0],['EnquiryResponse','RequestResults','Asset','PrimaryAssetData'] );
+				
 				var cleaned = {
 					make : get(result,['DVLA','Make','Description']),
 					model : get(result,['DVLA','Model','Description']),
@@ -98,8 +98,7 @@ exports.parse = function( raw, config, callback ){
 				// Default case - Assume one car at a time
 				return callback( undefined, cleaned ); 
 			} catch (err) {
-				console.error(err.stack);
-				console.error( JSON.stringify( get(result,['DVLA','KeyDates']), null, '\t' ));
+				console.error( JSON.stringify( envelope, null, '\t' ));
 				return callback(err);
 			}
 		
