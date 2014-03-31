@@ -1,5 +1,6 @@
 
 
+
 exports.performHpiCheck = function( reg, config, callback ){
 
 	var self = this;
@@ -29,10 +30,10 @@ exports.performHpiCheck = function( reg, config, callback ){
 			'</soapenv:Body>',
 		'</soapenv:Envelope>'].join('');
 
-	require('request')({
+	var r = require('request')({
 		method : 'POST', 
 		uri : config.url, 
-		body : query
+		body : query,
 	}, function ( err, res, body) {
 		if ( err ) return callback(err);
 		
@@ -41,10 +42,14 @@ exports.performHpiCheck = function( reg, config, callback ){
 			exports.parse( body, config, callback );
 		} else {
 			console.log('error: '+ status)
-			console.log(body)
+			console.log(body);
 			callback(new Error("HPI returned status code "+status));
 		}
 	});
+	
+	r.on('error', function (err){
+		callback(err);
+	})
 
 }
 
@@ -61,7 +66,14 @@ exports.parse = function( raw, config, callback ){
 			
 			try{
 				
-				var result = get( envelope['soapenv:Envelope']['soapenv:Body'][0],['EnquiryResponse','RequestResults','Asset','PrimaryAssetData'] );
+				var response = envelope['soapenv:Envelope']['soapenv:Body'][0];
+					result = get( response, ['EnquiryResponse','RequestResults','Asset','PrimaryAssetData'] );
+				
+				if ( !result['ns1:DVLA'] || !result['ns1:SMMT'] || !result['ns1:TranslatePlus'] ) {
+					var warning = get( response,['EnquiryResponse','RequestResults','Warning'] );
+					console.error( JSON.stringify( warning, null, '\t' ));
+					return callback(new Error("Vehicle not found by HPI"));
+				}
 				
 				var cleaned = {
 					make : get(result,['DVLA','Make','Description']),
