@@ -18,5 +18,8 @@
   "author": "Richard Marr",
   "bugs": {
     "url": "https://github.com/riskpenguin/node-hpi/issues"
+  },
+  "devDependencies": {
+    "mocha": "~1.17.1"
   }
 }
