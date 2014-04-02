@@ -1,4 +1,5 @@
 
+[![Build Status](https://secure.travis-ci.org/riskpenguin/node-hpi.png)](http://travis-ci.org/riskpenguin/node-hpi)
 
 # Installation
 
