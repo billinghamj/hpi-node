@@ -1,10 +1,10 @@
 {
   "name": "hpi",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Super basic API client for HPI's automotive checks",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test"
   },
   "license": "BSD-2-Clause",
   "dependencies": {
@@ -20,6 +20,6 @@
     "url": "https://github.com/riskpenguin/node-hpi/issues"
   },
   "devDependencies": {
-    "mocha": "~1.17.1"
+    "mocha": "^1.18.2"
   }
 }
