@@ -39,7 +39,10 @@ exports.performHpiCheck = function( reg, config, callback ){
 		
 		var status = res.statusCode;
 		if ( status >= 200 && status < 300 ){
-			exports.parse( body, config, callback );
+			exports.parse( body, config, function( err, data ){
+				if ( !err ) return callback( undefined, data );
+				console.error("Error from request",config.url,query);
+			});
 		} else {
 			console.log('error: '+ status)
 			console.log(body);
