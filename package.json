@@ -1,6 +1,6 @@
 {
   "name": "hpi",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Super basic API client for HPI's automotive checks",
   "main": "index.js",
   "scripts": {
