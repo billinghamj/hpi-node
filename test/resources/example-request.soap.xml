@@ -1,0 +1,22 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<soapenv:Body>
+		<EnquiryRequest xmlns="http://webservices.hpi.co.uk/CoreEnquiryV1">
+			<Authentication>
+				<SubscriberDetails>
+					<CustomerCode>customer-code</CustomerCode>
+					<Initials>initials</Initials>
+					<Password>password</Password>
+				</SubscriberDetails>
+			</Authentication>
+			<Request>
+				<Asset>
+					<Vrm>DG580PA</Vrm>
+					<Reference>REF1</Reference>
+				</Asset>
+				<PrimaryProduct>
+					<Code>HPI75</Code>
+				</PrimaryProduct>
+			</Request>
+		</EnquiryRequest>
+	</soapenv:Body>
+</soapenv:Envelope>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <soapenv:Body>
+        <ns1:EnquiryResponse xmlns:ns1="http://webservices.hpi.co.uk/CoreEnquiryV1">
+            <ns1:RequestResults>
+                <ns1:Asset>
+                    <ns1:AssetIdentification>
+                        <ns1:Vrm>AX05KBP</ns1:Vrm>
+                        <ns1:Vin>JHMGD17505S249363</ns1:Vin>
+                        <ns1:Mileage>0</ns1:Mileage>
+                    </ns1:AssetIdentification>
+                    <ns1:PrimaryAssetData xsi:type="ns1:IdCheckAssetType">
+                        <ns1:DVLA>
+                            <ns1:Make>
+                                <ns1:Code>R0</ns1:Code>
+                                <ns1:Description>HONDA</ns1:Description>
+                            </ns1:Make>
+                            <ns1:Model>
+                                <ns1:Code>401</ns1:Code>
+                                <ns1:Description>JAZZ SE</ns1:Description>
+                            </ns1:Model>
+                            <ns1:Body>
+                                <ns1:Code>14</ns1:Code>
+                                <ns1:Description>5 Door Hatchback</ns1:Description>
+                                <ns1:Colour>
+                                    <ns1:NumberPreviousColours>0</ns1:NumberPreviousColours>
+                                    <ns1:Current>
+                                        <ns1:Code>M</ns1:Code>
+                                        <ns1:Description>SILVER</ns1:Description>
+                                        <ns1:DateChanged xsi:nil="1"/>
+                                    </ns1:Current>
+                                    <ns1:Previous xsi:nil="1"/>
+                                    <ns1:Original xsi:nil="1"/>
+                                </ns1:Colour>
+                                <ns1:WheelPlan>
+                                    <ns1:Code>C</ns1:Code>
+                                    <ns1:Description>2 Axle Rigid Body</ns1:Description>
+                                </ns1:WheelPlan>
+                                <ns1:Weight>0</ns1:Weight>
+                            </ns1:Body>
+                            <ns1:Engine>
+                                <ns1:Size>1339</ns1:Size>
+                                <ns1:Number>L13A14046349</ns1:Number>
+                                <ns1:Fuel>
+                                    <ns1:Code>1</ns1:Code>
+                                    <ns1:Description>Petrol</ns1:Description>
+                                </ns1:Fuel>
+                            </ns1:Engine>
+                            <ns1:Keepers>
+                                <ns1:LastChangeOfKeeperDate>2005-09-20</ns1:LastChangeOfKeeperDate>
+                                <ns1:TotalPreviousKeepers>1</ns1:TotalPreviousKeepers>
+                                <ns1:PreviousKeeper>
+                                    <ns1:DateAcquiredVehicle>2005-05-31</ns1:DateAcquiredVehicle>
+                                    <ns1:DateDisposedOfVehicle>2005-09-20</ns1:DateDisposedOfVehicle>
+                                </ns1:PreviousKeeper>
+                            </ns1:Keepers>
+                            <ns1:KeyDates>
+                                <ns1:FirstRegistered>
+                                    <ns1:Date>2005-05-31</ns1:Date>
+                                    <ns1:VinVrmIndicator>
+                                        <ns1:Code>1</ns1:Code>
+                                        <ns1:Description>VRM</ns1:Description>
+                                    </ns1:VinVrmIndicator>
+                                </ns1:FirstRegistered>
+                                <ns1:Manufactured>
+                                    <ns1:Year>2005</ns1:Year>
+                                </ns1:Manufactured>
+                                <ns1:Scrapped xsi:nil="1"/>
+                                <ns1:Exported xsi:nil="1"/>
+                                <ns1:IsImported>false</ns1:IsImported>
+                            </ns1:KeyDates>
+                            <ns1:IsFromNorthernIreland>false</ns1:IsFromNorthernIreland>
+                        </ns1:DVLA>
+                        <ns1:SMMT>
+                            <ns1:Make>
+                                <ns1:Code>R2</ns1:Code>
+                                <ns1:Description>HONDA</ns1:Description>
+                            </ns1:Make>
+                            <ns1:Model>
+                                <ns1:Code>CG</ns1:Code>
+                                <ns1:Description>JAZZ</ns1:Description>
+                            </ns1:Model>
+                            <ns1:Body>
+                                <ns1:Code>D</ns1:Code>
+                                <ns1:Description>5 Door Hatchback</ns1:Description>
+                            </ns1:Body>
+                            <ns1:Transmission>
+                                <ns1:Code>B</ns1:Code>
+                                <ns1:Description>5 Speed Manual Petrol</ns1:Description>
+                            </ns1:Transmission>
+                        </ns1:SMMT>
+                        <ns1:CrossReference xsi:nil="1"/>
+                        <ns1:AdditionalInformation>
+                            <ns1:CO2Rating>137</ns1:CO2Rating>
+                            <ns1:PlateTransferIndicator xsi:nil="1"/>
+                        </ns1:AdditionalInformation>
+                    </ns1:PrimaryAssetData>
+                </ns1:Asset>
+            </ns1:RequestResults>
+        </ns1:EnquiryResponse>
+    </soapenv:Body>
+</soapenv:Envelope>

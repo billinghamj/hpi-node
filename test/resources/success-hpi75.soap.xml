@@ -1,0 +1,124 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soapenv:Body>
+      <ns1:EnquiryResponse xmlns:ns1="http://webservices.hpi.co.uk/CoreEnquiryV1">
+         <ns1:RequestResults>
+            <ns1:Asset>
+               <ns1:AssetIdentification>
+                  <ns1:Vrm>EF06CZK</ns1:Vrm>
+                  <ns1:Vin>WF05XXWPD56J58905</ns1:Vin>
+                  <ns1:Reference>REF1</ns1:Reference>
+               </ns1:AssetIdentification>
+               <ns1:PrimaryAssetData xsi:type="ns1:TranslatePlusAssetType">
+                  <ns1:DVLA>
+                     <ns1:Make>
+                        <ns1:Code>MA</ns1:Code>
+                        <ns1:Description>FORD</ns1:Description>
+                     </ns1:Make>
+                     <ns1:Model>
+                        <ns1:Code>415</ns1:Code>
+                        <ns1:Description>FOCUS LX TDCI 90</ns1:Description>
+                     </ns1:Model>
+                     <ns1:Body>
+                        <ns1:Code>14</ns1:Code>
+                        <ns1:Description>5 Door Hatchback</ns1:Description>
+                        <ns1:Colour>
+                           <ns1:NumberPreviousColours>0</ns1:NumberPreviousColours>
+                           <ns1:Current>
+                              <ns1:Code>P</ns1:Code>
+                              <ns1:Description>BLACK</ns1:Description>
+                              <ns1:DateChanged xsi:nil="1"/>
+                           </ns1:Current>
+                           <ns1:Previous xsi:nil="1"/>
+                           <ns1:Original xsi:nil="1"/>
+                        </ns1:Colour>
+                        <ns1:WheelPlan>
+                           <ns1:Code>C</ns1:Code>
+                           <ns1:Description>2 Axle Rigid Body</ns1:Description>
+                        </ns1:WheelPlan>
+                        <ns1:Weight>0</ns1:Weight>
+                     </ns1:Body>
+                     <ns1:Engine>
+                        <ns1:Size>1560</ns1:Size>
+                        <ns1:Number>6J58905</ns1:Number>
+                        <ns1:Fuel>
+                           <ns1:Code>2</ns1:Code>
+                           <ns1:Description>Diesel</ns1:Description>
+                        </ns1:Fuel>
+                     </ns1:Engine>
+                     <ns1:Keepers xsi:nil="1"/>
+                     <ns1:KeyDates>
+                        <ns1:FirstRegistered>
+                           <ns1:Date>2006-05-31</ns1:Date>
+                           <ns1:VinVrmIndicator>
+                              <ns1:Code>1</ns1:Code>
+                              <ns1:Description>VRM</ns1:Description>
+                           </ns1:VinVrmIndicator>
+                        </ns1:FirstRegistered>
+                        <ns1:Manufactured>
+                           <ns1:Year>2006</ns1:Year>
+                        </ns1:Manufactured>
+                        <ns1:Scrapped xsi:nil="1"/>
+                        <ns1:Exported xsi:nil="1"/>
+                        <ns1:IsImported>false</ns1:IsImported>
+                     </ns1:KeyDates>
+                     <ns1:IsFromNorthernIreland>false</ns1:IsFromNorthernIreland>
+                  </ns1:DVLA>
+                  <ns1:SMMT>
+                     <ns1:Make>
+                        <ns1:Code>F0</ns1:Code>
+                        <ns1:Description>FORD</ns1:Description>
+                     </ns1:Make>
+                     <ns1:Model>
+                        <ns1:Code>ED</ns1:Code>
+                        <ns1:Description>FOCUS (C307)</ns1:Description>
+                     </ns1:Model>
+                     <ns1:Body>
+                        <ns1:Code>D</ns1:Code>
+                        <ns1:Description>5 Door Hatchback</ns1:Description>
+                     </ns1:Body>
+                     <ns1:Transmission>
+                        <ns1:Code>F</ns1:Code>
+                        <ns1:Description>5 Speed Manual Diesel</ns1:Description>
+                     </ns1:Transmission>
+                  </ns1:SMMT>
+                  <ns1:CrossReference xsi:nil="1"/>
+                  <ns1:AdditionalInformation>
+                     <ns1:CO2Rating>125</ns1:CO2Rating>
+                     <ns1:PlateTransferIndicator xsi:nil="1"/>
+                  </ns1:AdditionalInformation>
+                  <ns1:TranslatePlus>
+                     <ns1:Instep>
+                        <ns1:Code>17551701</ns1:Code>
+                        <ns1:MatchLevel>01</ns1:MatchLevel>
+                        <ns1:MakeDescription>FORD</ns1:MakeDescription>
+                        <ns1:ModelDescription>FOCUS LX TDCI (90)</ns1:ModelDescription>
+                        <ns1:NumberOfDoors>5</ns1:NumberOfDoors>
+                        <ns1:EngineSize>1560</ns1:EngineSize>
+                        <ns1:Body>
+                           <ns1:Code/>
+                           <ns1:Description>Other</ns1:Description>
+                        </ns1:Body>
+                        <ns1:Fuel>
+                           <ns1:Code>D</ns1:Code>
+                           <ns1:Description>Diesel</ns1:Description>
+                        </ns1:Fuel>
+                        <ns1:Transmission>
+                           <ns1:Code>M</ns1:Code>
+                           <ns1:Description>Manual</ns1:Description>
+                        </ns1:Transmission>
+                        <ns1:Version>2</ns1:Version>
+                        <ns1:Manufactured>
+                           <ns1:StartYear>2004</ns1:StartYear>
+                           <ns1:EndYear>2007</ns1:EndYear>
+                        </ns1:Manufactured>
+                     </ns1:Instep>
+                     <ns1:InsuranceGroup>10</ns1:InsuranceGroup>
+                     <ns1:InsuranceGroupSuffix>E</ns1:InsuranceGroupSuffix>
+                     <ns1:SecurityCode>T2</ns1:SecurityCode>
+                  </ns1:TranslatePlus>
+               </ns1:PrimaryAssetData>
+            </ns1:Asset>
+         </ns1:RequestResults>
+      </ns1:EnquiryResponse>
+   </soapenv:Body>
+</soapenv:Envelope>

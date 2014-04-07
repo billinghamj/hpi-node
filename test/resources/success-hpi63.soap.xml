@@ -1,0 +1,261 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <soapenv:Body>
+      <ns1:EnquiryResponse xmlns:ns1="http://webservices.hpi.co.uk/CoreEnquiryV1">
+         <ns1:RequestResults>
+            <ns1:Asset>
+               <ns1:AssetIdentification>
+                  <ns1:Vrm>H331WYR</ns1:Vrm>
+                  <ns1:Vin>SFAFXXBAAFAG12345</ns1:Vin>
+                  <ns1:Reference>REF1</ns1:Reference>
+               </ns1:AssetIdentification>
+               <ns1:PrimaryAssetData xsi:type="ns1:FullCheckAssetType">
+                  <ns1:DVLA>
+                     <ns1:Make>
+                        <ns1:Code>F0</ns1:Code>
+                        <ns1:Description>FORD</ns1:Description>
+                     </ns1:Make>
+                     <ns1:Model>
+                        <ns1:Code>385</ns1:Code>
+                        <ns1:Description>ESCORT POPULAR</ns1:Description>
+                     </ns1:Model>
+                     <ns1:Body>
+                        <ns1:Code>02</ns1:Code>
+                        <ns1:Description>4 Door Saloon</ns1:Description>
+                        <ns1:Colour>
+                           <ns1:NumberPreviousColours>2</ns1:NumberPreviousColours>
+                           <ns1:Current>
+                              <ns1:Code>UC</ns1:Code>
+                              <ns1:Description>TURQUOISE/RED</ns1:Description>
+                              <ns1:DateChanged xsi:nil="1"/>
+                           </ns1:Current>
+                           <ns1:Previous>
+                              <ns1:Code>BG</ns1:Code>
+                              <ns1:Description>BRONZE/GOLD</ns1:Description>
+                              <ns1:DateChanged>1999-04-07</ns1:DateChanged>
+                           </ns1:Previous>
+                           <ns1:Original>
+                              <ns1:Code>AC</ns1:Code>
+                              <ns1:Description>BROWN/RED</ns1:Description>
+                              <ns1:DateChanged xsi:nil="1"/>
+                           </ns1:Original>
+                        </ns1:Colour>
+                        <ns1:WheelPlan>
+                           <ns1:Code>C</ns1:Code>
+                           <ns1:Description>2 Axle Rigid Body</ns1:Description>
+                        </ns1:WheelPlan>
+                        <ns1:Weight>11111</ns1:Weight>
+                     </ns1:Body>
+                     <ns1:Engine>
+                        <ns1:Size>1599</ns1:Size>
+                        <ns1:Number>Not Recorded</ns1:Number>
+                        <ns1:Fuel>
+                           <ns1:Code>1</ns1:Code>
+                           <ns1:Description>Petrol</ns1:Description>
+                        </ns1:Fuel>
+                     </ns1:Engine>
+                     <ns1:Keepers>
+                        <ns1:LastChangeOfKeeperDate>1999-10-16</ns1:LastChangeOfKeeperDate>
+                        <ns1:TotalPreviousKeepers>100</ns1:TotalPreviousKeepers>
+                        <ns1:PreviousKeeper>
+                           <ns1:DateAcquiredVehicle>1999-02-10</ns1:DateAcquiredVehicle>
+                           <ns1:DateDisposedOfVehicle>1989-07-15</ns1:DateDisposedOfVehicle>
+                        </ns1:PreviousKeeper>
+                     </ns1:Keepers>
+                     <ns1:KeyDates>
+                        <ns1:FirstRegistered>
+                           <ns1:Date>1989-07-31</ns1:Date>
+                           <ns1:VinVrmIndicator>
+                              <ns1:Code>3</ns1:Code>
+                              <ns1:Description>VIN And VRM</ns1:Description>
+                           </ns1:VinVrmIndicator>
+                        </ns1:FirstRegistered>
+                        <ns1:Manufactured>
+                           <ns1:Year>1989</ns1:Year>
+                        </ns1:Manufactured>
+                        <ns1:Scrapped xsi:nil="1"/>
+                        <ns1:Exported xsi:nil="1"/>
+                        <ns1:IsImported>true</ns1:IsImported>
+                     </ns1:KeyDates>
+                     <ns1:IsFromNorthernIreland>false</ns1:IsFromNorthernIreland>
+                  </ns1:DVLA>
+                  <ns1:SMMT>
+                     <ns1:Make>
+                        <ns1:Code>F0</ns1:Code>
+                        <ns1:Description>FORD</ns1:Description>
+                     </ns1:Make>
+                     <ns1:Model>
+                        <ns1:Code>DN</ns1:Code>
+                        <ns1:Description>ESCORT</ns1:Description>
+                     </ns1:Model>
+                     <ns1:Body>
+                        <ns1:Code>D</ns1:Code>
+                        <ns1:Description>5 Door Hatchback</ns1:Description>
+                     </ns1:Body>
+                     <ns1:Transmission>
+                        <ns1:Code>A</ns1:Code>
+                        <ns1:Description>4 Speed Manual Petrol</ns1:Description>
+                     </ns1:Transmission>
+                  </ns1:SMMT>
+                  <ns1:CrossReference xsi:nil="1"/>
+                  <ns1:AdditionalInformation>
+                     <ns1:CO2Rating>123</ns1:CO2Rating>
+                     <ns1:PlateTransferIndicator>Y</ns1:PlateTransferIndicator>
+                  </ns1:AdditionalInformation>
+                  <ns1:FullCheck>
+                     <ns1:PlateTransfers>
+                        <ns1:PlateTransferIndicator>Y</ns1:PlateTransferIndicator>
+                        <ns1:Date xsi:nil="1"/>
+                        <ns1:Plate>
+                           <ns1:Date>1999-11-30</ns1:Date>
+                           <ns1:VRM>IAZ1111</ns1:VRM>
+                           <ns1:SecurityWatch xsi:nil="1"/>
+                           <ns1:FinanceAgreements xsi:nil="1"/>
+                           <ns1:VCAR>
+                              <ns1:Damages>
+                                 <ns1:Damage xsi:type="ns1:PreviousVRMVCARType">
+                                    <ns1:VehicleDescription>CAR</ns1:VehicleDescription>
+                                    <ns1:DateRecorded>2005-01-01</ns1:DateRecorded>
+                                    <ns1:IncidentDescription>Category A Insurance Loss. This Vehicle should have been crushed. It should not be on the road</ns1:IncidentDescription>
+                                    <ns1:InterestType>40</ns1:InterestType>
+                                    <ns1:ConditionDate>2005-10-06</ns1:ConditionDate>
+                                    <ns1:ConditionType>A</ns1:ConditionType>
+                                    <ns1:AmendmentDate>2005-10-06</ns1:AmendmentDate>
+                                 </ns1:Damage>
+                              </ns1:Damages>
+                              <ns1:Thefts>
+                                 <ns1:Theft xsi:type="ns1:PreviousVRMVCARType">
+                                    <ns1:VehicleDescription>CAR</ns1:VehicleDescription>
+                                    <ns1:DateRecorded>2002-01-01</ns1:DateRecorded>
+                                    <ns1:IncidentDescription>Vehicle recorded as Insurance Theft on Condition Alert register</ns1:IncidentDescription>
+                                    <ns1:InterestType xsi:nil="1"/>
+                                    <ns1:ConditionDate xsi:nil="1"/>
+                                    <ns1:ConditionType xsi:nil="1"/>
+                                    <ns1:AmendmentDate xsi:nil="1"/>
+                                 </ns1:Theft>
+                              </ns1:Thefts>
+                              <ns1:Inspections>
+                                 <ns1:Inspection xsi:type="ns1:PreviousVRMVehicleInspectionType">
+                                    <ns1:TypeOfInspection>
+                                       <ns1:Code xsi:nil="1"/>
+                                       <ns1:Description>Unknown vehicle inspection code</ns1:Description>
+                                    </ns1:TypeOfInspection>
+                                    <ns1:Location>AUTOLIGN NORTHAMPTON</ns1:Location>
+                                    <ns1:TelephoneNumber>01604 859424</ns1:TelephoneNumber>
+                                    <ns1:InspectionDate>2001-07-13</ns1:InspectionDate>
+                                    <ns1:ClaimDate>1995-01-01</ns1:ClaimDate>
+                                    <ns1:VehicleDescription>MAZDA</ns1:VehicleDescription>
+                                    <ns1:InterestType>45</ns1:InterestType>
+                                    <ns1:ConditionDate>2001-07-17</ns1:ConditionDate>
+                                    <ns1:ConditionType>N</ns1:ConditionType>
+                                 </ns1:Inspection>
+                              </ns1:Inspections>
+                           </ns1:VCAR>
+                           <ns1:StolenIncidents>
+                              <ns1:StolenIncident xsi:type="ns1:PreviousVRMStolenType">
+                                 <ns1:Constabulary>WESSEX CONSTABULARY</ns1:Constabulary>
+                                 <ns1:TelephoneNumber>01722 413434</ns1:TelephoneNumber>
+                                 <ns1:Description>FORD</ns1:Description>
+                                 <ns1:Date>1999-04-24</ns1:Date>
+                                 <ns1:StolenDate>2001-07-13</ns1:StolenDate>
+                              </ns1:StolenIncident>
+                           </ns1:StolenIncidents>
+                        </ns1:Plate>
+                     </ns1:PlateTransfers>
+                     <ns1:SecurityWatch xsi:type="ns1:SecurityWatchType">
+                        <ns1:TotalVRMReadings>4</ns1:TotalVRMReadings>
+                        <ns1:TotalVINReadings>13</ns1:TotalVINReadings>
+                        <ns1:Telephone>01722 413434</ns1:Telephone>
+                     </ns1:SecurityWatch>
+                     <ns1:FinanceAgreements>
+                        <ns1:FinanceDetails>
+                           <ns1:AgreementReference>MONITORTEST</ns1:AgreementReference>
+                           <ns1:TypeOfAgreement>
+                              <ns1:Code>1</ns1:Code>
+                              <ns1:Description>Hire Purchase</ns1:Description>
+                           </ns1:TypeOfAgreement>
+                           <ns1:VehicleDescription>CAR</ns1:VehicleDescription>
+                           <ns1:TelephoneNumber>EXT 5617</ns1:TelephoneNumber>
+                           <ns1:StartDate>2008-10-20</ns1:StartDate>
+                           <ns1:Term>36</ns1:Term>
+                           <ns1:FinanceCompany>ZASTEC BMW</ns1:FinanceCompany>
+                           <ns1:RecordedAgainst>VRM</ns1:RecordedAgainst>
+                        </ns1:FinanceDetails>
+                     </ns1:FinanceAgreements>
+                     <ns1:VCAR>
+                        <ns1:Damages>
+                           <ns1:Damage xsi:type="ns1:VCARType">
+                              <ns1:VehicleDescription>MAZDA</ns1:VehicleDescription>
+                              <ns1:DateRecorded>2004-01-01</ns1:DateRecorded>
+                              <ns1:IncidentDescription>Category C Insurance Loss. Vehicle Extensively Damaged But Repairable -Insurer Decided Not To Repair</ns1:IncidentDescription>
+                              <ns1:RecordedAgainst>VRM</ns1:RecordedAgainst>
+                           </ns1:Damage>
+                           <ns1:Damage xsi:type="ns1:VCARType">
+                              <ns1:VehicleDescription>MAZDA</ns1:VehicleDescription>
+                              <ns1:DateRecorded>2004-01-01</ns1:DateRecorded>
+                              <ns1:IncidentDescription>Category D Insurance Loss. Vehicle Damaged But Repairable - Insurer Decided Not To Repair</ns1:IncidentDescription>
+                              <ns1:RecordedAgainst>VRM</ns1:RecordedAgainst>
+                           </ns1:Damage>
+                           <ns1:Damage xsi:type="ns1:VCARType">
+                              <ns1:VehicleDescription>FORD FIESTA</ns1:VehicleDescription>
+                              <ns1:DateRecorded>1999-01-01</ns1:DateRecorded>
+                              <ns1:IncidentDescription>Category F Insurance Loss. Vehicle Damaged By Fire and Insurer Has Decided Not To Repair.</ns1:IncidentDescription>
+                              <ns1:RecordedAgainst>VIN</ns1:RecordedAgainst>
+                           </ns1:Damage>
+                           <ns1:Damage xsi:type="ns1:VCARType">
+                              <ns1:VehicleDescription>MAZDA</ns1:VehicleDescription>
+                              <ns1:DateRecorded>1995-01-01</ns1:DateRecorded>
+                              <ns1:IncidentDescription>Vehicle Has Been The Subject Of An Insurance Total Loss Payment</ns1:IncidentDescription>
+                              <ns1:RecordedAgainst>VIN</ns1:RecordedAgainst>
+                           </ns1:Damage>
+                        </ns1:Damages>
+                        <ns1:Thefts>
+                           <ns1:Theft xsi:type="ns1:VCARType">
+                              <ns1:VehicleDescription>MAZDA</ns1:VehicleDescription>
+                              <ns1:DateRecorded>2004-01-01</ns1:DateRecorded>
+                              <ns1:IncidentDescription>Vehicle Recorded As Insurance Theft On Condition Alert Regstr</ns1:IncidentDescription>
+                              <ns1:RecordedAgainst>VRM</ns1:RecordedAgainst>
+                           </ns1:Theft>
+                        </ns1:Thefts>
+                        <ns1:Inspections>
+                           <ns1:Inspection xsi:type="ns1:VehicleInspectionType">
+                              <ns1:TypeOfInspection>
+                                 <ns1:Code>P1</ns1:Code>
+                                 <ns1:Description>Previously Recorded As DAMAGED On Condition Alert Regstr</ns1:Description>
+                              </ns1:TypeOfInspection>
+                              <ns1:Location>Popplewells Essex</ns1:Location>
+                              <ns1:TelephoneNumber>01992 561571</ns1:TelephoneNumber>
+                              <ns1:InspectionDate>1995-01-09</ns1:InspectionDate>
+                              <ns1:ClaimDate>1993-01-01</ns1:ClaimDate>
+                              <ns1:VehicleDescription>FORD ESCORT GHIA</ns1:VehicleDescription>
+                              <ns1:RecordedAgainst>VRM</ns1:RecordedAgainst>
+                           </ns1:Inspection>
+                           <ns1:Inspection xsi:type="ns1:VehicleInspectionType">
+                              <ns1:TypeOfInspection>
+                                 <ns1:Code>A1</ns1:Code>
+                                 <ns1:Description>Previously Recorded As DAMAGED On Condition Alert Regstr</ns1:Description>
+                              </ns1:TypeOfInspection>
+                              <ns1:Location>AUTOLIGN NORTHAMPTON</ns1:Location>
+                              <ns1:TelephoneNumber>01604 859424</ns1:TelephoneNumber>
+                              <ns1:InspectionDate>1994-08-05</ns1:InspectionDate>
+                              <ns1:ClaimDate>1994-02-02</ns1:ClaimDate>
+                              <ns1:VehicleDescription>CAR</ns1:VehicleDescription>
+                              <ns1:RecordedAgainst>VIN</ns1:RecordedAgainst>
+                           </ns1:Inspection>
+                        </ns1:Inspections>
+                     </ns1:VCAR>
+                     <ns1:StolenIncidents>
+                        <ns1:StolenIncident xsi:type="ns1:StolenType">
+                           <ns1:Constabulary>METROPOLITAN POLICE</ns1:Constabulary>
+                           <ns1:TelephoneNumber>0171 722 5573</ns1:TelephoneNumber>
+                           <ns1:Description>NNNNNNNN</ns1:Description>
+                           <ns1:Date>2006-01-01</ns1:Date>
+                           <ns1:RecordedAgainst>VRM</ns1:RecordedAgainst>
+                        </ns1:StolenIncident>
+                     </ns1:StolenIncidents>
+                  </ns1:FullCheck>
+               </ns1:PrimaryAssetData>
+            </ns1:Asset>
+         </ns1:RequestResults>
+      </ns1:EnquiryResponse>
+   </soapenv:Body>
+</soapenv:Envelope>
