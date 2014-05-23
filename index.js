@@ -101,7 +101,7 @@ exports.parse = function( raw, config, callback ){
 				}
 				
 				// catch warnings
-				if ( clean.EnquiryResponse.RequestResults.Warning ){
+				if ( clean.EnquiryResponse.RequestResults.Warning && !clean.EnquiryResponse.RequestResults.Asset ){
 					return callback(new Error("Warning: "+clean.EnquiryResponse.RequestResults.Warning.Description));
 				}
 				
@@ -118,7 +118,7 @@ exports.parse = function( raw, config, callback ){
 	
 }
 
-// Cleans up all the garbage returned by xml2js
+// Cleans up all the XML hangover garbage returned by xml2js
 // e.g. result['ns1:DVLA'][0]['ns1:Body'][0]['ns1:Colour'][0]['ns1:Current']  becomes: result.DVLA.Body.Colour.Current
 function cleanUpXmlRubbish( dirtyNode, cleanNode, cleanParent, parentProp ){
 	
