@@ -25,14 +25,11 @@ exports.performHpiCheck = function( reg, config, callback ){
 // Deal with status codes, and parsing
 exports.handleResponse = function( status, body, config, callback ){
 	if ( status >= 200 && status < 300 ){
-		exports.parse( body, config, function( err, data ){
-			if ( !err ) return callback( undefined, data );
-			callback( err );
-		});
+		exports.parse( body, config, callback );
 	} else {
 		//console.error("Error "+status+" from request",config.url);
 		//console.log(body);
-		callback(new Error("HPI returned status code "+status));
+		return callback(new Error("HPI returned status code "+status));
 	}
 };
 
@@ -65,6 +62,7 @@ exports.serialise = function( reg, config ){
 		'</soapenv:Envelope>'].join('');
 };
 
+
 // Parse the body of a response and return in a readable format
 exports.parse = function( raw, config, callback ){
 	
@@ -73,47 +71,45 @@ exports.parse = function( raw, config, callback ){
 		if ( err ) return callback(err);
 		if ( !envelope ) return callback(new Error("Failed to parse XML, not sure why this might happen"));
 		
-		try {
-			
-			try{
-				
-				// This cleans up the mess left by XML so we can traverse the resulting object without getting a hernia
-				var clean = {};
-				cleanUpXmlRubbish( envelope['soapenv:Envelope']['soapenv:Body'][0], clean );
-				
-			
-				if ( config.debug ) config.debug( clean );
-			
-				// report faults
-				if ( clean.Fault ) {
-					var fault = clean.Fault;
-					// report a clean error if we have one
-					if ( fault.detail && fault.detail.HpiSoapFault && fault.detail.HpiSoapFault ){
-						return callback(new Error(clean.Fault.detail.HpiSoapFault.Error.Description));
-					}
-					// otherwise just dump the lot for now
-					return callback(new Error("Unknown HPI error: "+JSON.stringify(fault)));
-				}
-				
-				// catch all if there's no RequestResults segment
-				if ( !clean.EnquiryResponse || !clean.EnquiryResponse.RequestResults ) {
-					return callback(new Error("Missing data: "+JSON.stringify( clean )));
-				}
-				
-				// catch warnings
-				if ( clean.EnquiryResponse.RequestResults.Warning && !clean.EnquiryResponse.RequestResults.Asset ){
-					return callback(new Error("Warning: "+clean.EnquiryResponse.RequestResults.Warning.Description));
-				}
-				
-				return callback( undefined, clean.EnquiryResponse.RequestResults.Asset ); 
-				
-			} catch (err) {
-				return callback(err);
-			}
 		
-		} catch (err){
-			return callback(err);
-		}
+		//try{
+			
+			// This cleans up the mess left by XML so we can traverse the resulting object without getting a hernia
+			var clean = {};
+			cleanUpXmlRubbish( envelope['soapenv:Envelope']['soapenv:Body'][0], clean );
+			
+		
+			if ( config.debug ) config.debug( clean );
+		
+			// report faults
+			if ( clean.Fault ) {
+				var fault = clean.Fault;
+				// report a clean error if we have one
+				if ( fault.detail && fault.detail.HpiSoapFault && fault.detail.HpiSoapFault ){
+					var desc = clean.Fault.detail.HpiSoapFault.Error.Description;
+					if ( desc === "VRM is invalid" ) return callback( undefined, new Error(desc) );
+					return callback( new Error(desc));
+				}
+				// otherwise just dump the lot for now
+				return callback( new Error("Unknown HPI error: "+JSON.stringify(fault)) );
+			}
+			
+			// catch all if there's no RequestResults segment
+			if ( !clean.EnquiryResponse || !clean.EnquiryResponse.RequestResults ) {
+				return callback( undefined, new Error("Missing data: "+JSON.stringify(clean)) );
+			}
+			
+			// catch warnings
+			if ( clean.EnquiryResponse.RequestResults.Warning && !clean.EnquiryResponse.RequestResults.Asset ){
+				return callback( undefined, new Error(clean.EnquiryResponse.RequestResults.Warning.Description));
+			}
+			
+			return callback( undefined, undefined, clean.EnquiryResponse.RequestResults.Asset ); 
+			
+		//} catch (err) {
+		//	console.log(err.stack)
+		//	return callback(err);
+		//}
     });
 	
 }
