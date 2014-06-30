@@ -26,10 +26,10 @@ exports.performHpiCheck = function( reg, config, callback ){
 exports.handleResponse = function( status, body, config, callback ){
 	if ( status >= 200 && status < 300 ){
 		exports.parse( body, config, callback );
+	} else if ( body && body.indexOf("VRM is invalid") > -1 ) {
+		return callback( undefined, new Error("VRM is invalid") );
 	} else {
-		//console.error("Error "+status+" from request",config.url);
-		//console.log(body);
-		return callback(new Error("HPI returned status code "+status));
+		return callback(new Error("HPI returned status code "+status,body));
 	}
 };
 
@@ -78,7 +78,7 @@ exports.parse = function( raw, config, callback ){
 			var clean = {};
 			cleanUpXmlRubbish( envelope['soapenv:Envelope']['soapenv:Body'][0], clean );
 			
-		
+		console.log(clean)
 			if ( config.debug ) config.debug( clean );
 		
 			// report faults
