@@ -78,7 +78,6 @@ exports.parse = function( raw, config, callback ){
 			var clean = {};
 			cleanUpXmlRubbish( envelope['soapenv:Envelope']['soapenv:Body'][0], clean );
 			
-		console.log(clean)
 			if ( config.debug ) config.debug( clean );
 		
 			// report faults
@@ -100,10 +99,14 @@ exports.parse = function( raw, config, callback ){
 			}
 			
 			// catch warnings
-			if ( clean.EnquiryResponse.RequestResults.Warning && !clean.EnquiryResponse.RequestResults.Asset ){
+			if ( clean.EnquiryResponse.RequestResults.Warning && (
+				!clean.EnquiryResponse.RequestResults.Asset
+				|| !clean.EnquiryResponse.RequestResults.Asset.PrimaryAssetData
+				|| !clean.EnquiryResponse.RequestResults.Asset.PrimaryAssetData.DVLA
+				)){
 				return callback( undefined, new Error(clean.EnquiryResponse.RequestResults.Warning.Description));
 			}
-			
+		
 			return callback( undefined, undefined, clean.EnquiryResponse.RequestResults.Asset ); 
 			
 		//} catch (err) {

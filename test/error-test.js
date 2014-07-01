@@ -43,6 +43,17 @@ describe('error response handling', function(){
 		});
 	});
 	
+	
+	it("should handle weird mostly-missing VRMs", function(done){
+		fs.readFile( "./test/resources/warn-partial-reg-not-found.soap.xml", "utf8", function( err, body ){
+			hpi.parse( body, {}, function( sysErr, dataErr, result ){
+				assert.ok(dataErr);
+				assert.equal( dataErr.message, "0 ABI recs returned - error from Vehicle search" );
+				done();
+			});
+		});
+	});
+	
 	it("should handle invalid VRMs", function(done){
 		fs.readFile( "./test/resources/error-vrm-invalid.soap.xml", "utf8", function( err, body ){
 			hpi.parse( body, {}, function( sysErr, dataErr, result ){
