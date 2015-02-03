@@ -22,7 +22,7 @@ exports.getAllUsefulFields = function(hpiContent){
 		dvla = get(root,'DVLA'),
 		instep = get(root,'TranslatePlus.Instep');
 
-	var fullmodel = (get(dvla,'Model.Description') || get(root,'SMMT.Model.Description')).split(" "),
+	var fullmodel = (get(dvla,'Model.Description') || get(root,'SMMT.Model.Description') || "").split(" "),
 		matches = /([\d]+) Speed ([\w]+) ([\w]+)/.exec(get(root,"SMMT.Transmission.Description")),
 		gears,
 		transmission,
