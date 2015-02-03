@@ -41,6 +41,7 @@ exports.getAllUsefulFields = function(hpiContent){
 		year : integerOrNull( get(dvla,'KeyDates.Manufactured.Year') ),
 		scrapped : integerOrNull( get(dvla,'KeyDates.Scrapped.Date') ),
 		manufacturer : get(dvla,'Make.Description') || get(root,'SMMT.Make.Description'),
+		model : fullmodel.join(" "),
 		family : fullmodel[0],
 		variant : fullmodel.join(" ").replace(fullmodel[0],"").trim(),
 		engine_cc : integerOrNull( get(dvla,'Engine.Size') || get(instep,'EngineSize') ),
@@ -70,13 +71,11 @@ exports.performHpiCheck = function( reg, config, callback ){
 	var self = this;
 	var query = exports.serialise( reg, config );
 
-console.log("SENDING");
 	var r = require('request')({
 		method : 'POST', 
 		uri : config.url, 
 		body : query,
 	}, function ( err, res, body) {
-console.log("GOT");
 		if ( err ) return callback(err);
 		
 		exports.handleResponse( res.statusCode, body, config, callback );
@@ -92,10 +91,10 @@ console.log("GOT");
 // This is broken up for unit testing
 exports.flatHpiCheck = function( reg, config, callback ){
 
-	exports.performHpiCheck( reg, config, function( err, result ){
-		if ( err ) return callback(err);
+	exports.performHpiCheck( reg, config, function( sysErr, dataErr, result ){
+		if ( sysErr || dataErr ) return callback( sysErr, dataErr );
 
-		callback( undefined, exports.getAllUsefulFields(result) );
+		callback( undefined, undefined, exports.getAllUsefulFields(result) );
 	});
 }
 
