@@ -6,10 +6,13 @@ function integerOrNull(value){
 
 
 function get( obj, fields ){
+	if ( !obj ) return undefined;
+	
 	var ref = obj,
 		props = fields.split(".");
-	for ( var prop in props ) {
-		if ( ref[props[prop]] ) ref = ref[props[prop]];
+
+	for ( var i = 0; i < props.length; i++ ) {
+		if ( ref[props[i]] ) ref = ref[props[i]];
 		else return undefined;
 	}
 	return ref;
