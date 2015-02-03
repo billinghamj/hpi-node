@@ -1,0 +1,151 @@
+{
+	"AssetIdentification": {
+		"Vrm": "EF06CZK",
+		"Vin": "WF05XXWPD56J58905",
+		"Reference": "REF1"
+	},
+	"PrimaryAssetData": {
+		"$": {
+			"type": "ns1:TranslatePlusAssetType"
+		},
+		"DVLA": {
+			"Make": {
+				"Code": "MA",
+				"Description": "FORD"
+			},
+			"Model": {
+				"Code": "415",
+				"Description": "FOCUS LX TDCI 90"
+			},
+			"Body": {
+				"Code": "14",
+				"Description": "5 Door Hatchback",
+				"Colour": {
+					"NumberPreviousColours": "0",
+					"Current": {
+						"Code": "P",
+						"Description": "BLACK",
+						"DateChanged": {
+							"$": {
+								"nil": "1"
+							}
+						}
+					},
+					"Previous": {
+						"$": {
+							"nil": "1"
+						}
+					},
+					"Original": {
+						"$": {
+							"nil": "1"
+						}
+					}
+				},
+				"WheelPlan": {
+					"Code": "C",
+					"Description": "2 Axle Rigid Body"
+				},
+				"Weight": "0"
+			},
+			"Engine": {
+				"Size": "1560",
+				"Number": "6J58905",
+				"Fuel": {
+					"Code": "2",
+					"Description": "Diesel"
+				}
+			},
+			"Keepers": {
+				"$": {
+					"nil": "1"
+				}
+			},
+			"KeyDates": {
+				"FirstRegistered": {
+					"Date": "2006-05-31",
+					"VinVrmIndicator": {
+						"Code": "1",
+						"Description": "VRM"
+					}
+				},
+				"Manufactured": {
+					"Year": "2006"
+				},
+				"Scrapped": {
+					"$": {
+						"nil": "1"
+					}
+				},
+				"Exported": {
+					"$": {
+						"nil": "1"
+					}
+				},
+				"IsImported": "false"
+			},
+			"IsFromNorthernIreland": "false"
+		},
+		"SMMT": {
+			"Make": {
+				"Code": "F0",
+				"Description": "FORD"
+			},
+			"Model": {
+				"Code": "ED",
+				"Description": "FOCUS (C307)"
+			},
+			"Body": {
+				"Code": "D",
+				"Description": "5 Door Hatchback"
+			},
+			"Transmission": {
+				"Code": "F",
+				"Description": "5 Speed Manual Diesel"
+			}
+		},
+		"CrossReference": {
+			"$": {
+				"nil": "1"
+			}
+		},
+		"AdditionalInformation": {
+			"CO2Rating": "125",
+			"PlateTransferIndicator": {
+				"$": {
+					"nil": "1"
+				}
+			}
+		},
+		"TranslatePlus": {
+			"Instep": {
+				"Code": "17551701",
+				"MatchLevel": "01",
+				"MakeDescription": "FORD",
+				"ModelDescription": "FOCUS LX TDCI (90)",
+				"NumberOfDoors": "5",
+				"EngineSize": "1560",
+				"Body": {
+					"Code": "",
+					"Description": "Other"
+				},
+				"Fuel": {
+					"Code": "D",
+					"Description": "Diesel"
+				},
+				"Transmission": {
+					"Code": "M",
+					"Description": "Manual"
+				},
+				"Version": "2",
+				"Manufactured": {
+					"StartYear": "2004",
+					"EndYear": "2007"
+				}
+			},
+			"InsuranceGroup": "10",
+			"InsuranceGroupSuffix": "E",
+			"SecurityCode": "T2"
+		}
+	}
+}

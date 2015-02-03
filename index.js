@@ -1,5 +1,68 @@
 
 
+function integerOrNull(value){
+	return isNaN(value) ? null : parseInt(value,10);
+}
+
+
+function get( obj, fields ){
+	var ref = obj,
+		props = fields.split(".");
+	for ( var prop in props ) {
+		if ( ref[props[prop]] ) ref = ref[props[prop]];
+		else return undefined;
+	}
+	return ref;
+}
+
+exports.getAllUsefulFields = function(hpiContent){
+	if ( !hpiContent ) return;
+	
+	var root = get(hpiContent,'PrimaryAssetData'),
+		dvla = get(root,'DVLA'),
+		instep = get(root,'TranslatePlus.Instep');
+
+	var fullmodel = (get(dvla,'Model.Description') || get(root,'SMMT.Model.Description')).split(" "),
+		matches = /([\d]+) Speed ([\w]+) ([\w]+)/.exec(get(root,"SMMT.Transmission.Description")),
+		gears,
+		transmission,
+		fuel;
+
+	if ( matches && matches.length ){
+		gears = parseInt(matches[1]);
+		transmission = matches[2];
+		fuel = matches[3];
+	}
+
+	return {
+		reg_no : get(hpiContent,'AssetIdentification.Vrm'),
+		imported : ( get(dvla,'KeyDates.IsImported') == 'false' ? 0 : 1 ),
+		registered : integerOrNull( get(dvla,'KeyDates.FirstRegistered.Date') ),
+		year : integerOrNull( get(dvla,'KeyDates.Manufactured.Year') ),
+		scrapped : integerOrNull( get(dvla,'KeyDates.Scrapped.Date') ),
+		manufacturer : get(dvla,'Make.Description') || get(root,'SMMT.Make.Description'),
+		family : fullmodel[0],
+		variant : fullmodel.join(" ").replace(fullmodel[0],"").trim(),
+		engine_cc : integerOrNull( get(dvla,'Engine.Size') || get(instep,'EngineSize') ),
+		colour : get(dvla,'Body.Colour.Current.Description'),
+		manufactured_from : integerOrNull( get(instep,'Manufactured.StartYear') ),
+		manufactured_to : integerOrNull( get(instep,'Manufactured.EndYear') ),
+		group : integerOrNull( get(root,'TranslatePlus.InsuranceGroup') ),
+		group_suffix : get(root,'TranslatePlus.InsuranceGroupSuffix'),
+		security_code : get(root,'TranslatePlus.SecurityCode'),
+		weight : integerOrNull( get(dvla,'Body.Weight') ),
+		transmission : get(instep,'Transmission.Code'),
+		doors : integerOrNull( get(instep,'NumberOfDoors') ),
+		vin : get(hpiContent,'AssetIdentification.Vin'),
+		abi : get(root,"TranslatePlus.Instep.Code"),
+		fuel : ( get(dvla,'Engine.Fuel.Description') || fuel ),
+		fuel_code : get(dvla,'Engine.Fuel.Code'),
+		co2_rating : integerOrNull(get(root,'AdditionalInformation.CO2Rating')),
+		forward_gears : gears
+	};
+};
+
+
 // Main API
 // This is broken up for unit testing
 exports.performHpiCheck = function( reg, config, callback ){
@@ -7,11 +70,13 @@ exports.performHpiCheck = function( reg, config, callback ){
 	var self = this;
 	var query = exports.serialise( reg, config );
 
+console.log("SENDING");
 	var r = require('request')({
 		method : 'POST', 
 		uri : config.url, 
 		body : query,
 	}, function ( err, res, body) {
+console.log("GOT");
 		if ( err ) return callback(err);
 		
 		exports.handleResponse( res.statusCode, body, config, callback );
@@ -19,6 +84,18 @@ exports.performHpiCheck = function( reg, config, callback ){
 	
 	r.on('error', function (err){
 		callback(err);
+	});
+}
+
+
+// Main API
+// This is broken up for unit testing
+exports.flatHpiCheck = function( reg, config, callback ){
+
+	exports.performHpiCheck( reg, config, function( err, result ){
+		if ( err ) return callback(err);
+
+		callback( undefined, exports.getAllUsefulFields(result) );
 	});
 }
 
