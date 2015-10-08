@@ -4,12 +4,21 @@ const Request = require('request');
 module.exports = function (reg, config) {
 	const query = serialise(reg, config);
 
+	return Promise.resolve({
+		method: 'POST',
+		uri: config.url,
+		body: query,
+	})
+	.then(makeRequest)
+	.then(handleResponse)
+	.then(parseXml)
+	.then(cleanupXml)
+	.then(processSoapResponse);
+};
+
+function makeRequest(options) {
 	return new Promise(function (resolve, reject) {
-		Request({
-			method: 'POST',
-			uri: config.url,
-			body: query,
-		}, function (error, response, body) {
+		Request(options, function (error, response, body) {
 			if (error) {
 				reject(error);
 				return;
@@ -18,62 +27,74 @@ module.exports = function (reg, config) {
 			response.body = body;
 			resolve(response);
 		});
-	})
-	.then(handleResponse);
-};
+	});
+}
 
 function handleResponse(response) {
 	const status = response.statusCode;
-	const body = response.body;
+	const body = response.body || '';
 
 	if (status >= 300) {
-		if (body && body.indexOf('VRM is invalid') !== -1)
+		if (body.indexOf('VRM is invalid') !== -1)
 			throw new Error('VRM is invalid');
 
 		throw new Error('HPI returned status code ' + status, body);
 	}
 
-	return parse(body);
+	return body;
 }
 
-function parse(raw) {
+function parseXml(xml) {
+	const parser = new XmlParser();
+
 	return new Promise(function (resolve, reject) {
-		const parser = new XmlParser();
-		parser.parseString(raw, function (error, result) {
+		parser.parseString(xml, function (error, result) {
 			if (error) reject(error);
 			else resolve(result);
 		});
-	})
-	.then(function (response) {
-		const body = tryGet(response, 'Envelope.Body');
+	});
+}
 
-		if (!body)
-			throw new Error('invalid soap response: ' + JSON.stringify(response));
+function cleanupXml(result) {
+	// yes, this really can happen
+	if (!result)
+		return null;
 
-		const fault = tryGet(body, 'Fault');
-		const results = tryGet(body, 'EnquiryResponse.RequestResults');
+	// makes it more palatable
+	const clean = {};
+	cleanXmlNode(result, clean);
+	return clean;
+}
 
-		if (fault) {
-			const info = tryGet(fault, 'detail.HpiSoapFault.Error');
+function processSoapResponse(response) {
+	const body = tryGet(response, 'Envelope.Body');
 
-			if (!info)
-				throw new Error('unknown soap fault: ' + JSON.stringify(fault));
+	if (!body)
+		throw new Error('invalid soap response: ' + JSON.stringify(response));
 
-			throw new Error('fault ' + info.Code + ': ' + info.Description);
-		}
+	const fault = tryGet(body, 'Fault');
+	const results = tryGet(body, 'EnquiryResponse.RequestResults');
 
-		if (!results)
-			throw new Error('missing results: ' + JSON.stringify(body));
+	if (fault) {
+		const info = tryGet(fault, 'detail.HpiSoapFault.Error');
 
-		const warning = tryGet(results, 'Warning');
-		const asset = tryGet(results, 'Asset');
+		if (!info)
+			throw new Error('unknown soap fault: ' + JSON.stringify(fault));
 
-		// currently treating warnings as fatal
-		if (warning)
-			throw new Error('warning ' + warning.Code + ': ' + warning.Description);
+		throw new Error('fault ' + info.Code + ': ' + info.Description);
+	}
 
-		return asset;
-  });
+	if (!results)
+		throw new Error('missing results: ' + JSON.stringify(body));
+
+	const warning = tryGet(results, 'Warning');
+	const asset = tryGet(results, 'Asset');
+
+	// currently treating warnings as fatal
+	if (warning)
+		throw new Error('warning ' + warning.Code + ': ' + warning.Description);
+
+	return asset;
 }
 
 function serialise(reg, config) {
