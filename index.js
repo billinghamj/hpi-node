@@ -17,7 +17,6 @@ const xmlParser = new XML2JS.Parser({
 exports.query = function (query, config) {
 	return makeRequest(query, config)
 	.then(handleResponse)
-	.then(parseXml)
 	.then(cleanupXml)
 	.then(processSoapResponse);
 };
@@ -54,11 +53,7 @@ function handleResponse(response) {
 		throw new Error('status code ' + status + ': ' + JSON.stringify(body));
 	}
 
-	return body;
-}
-
-function parseXml(xml) {
-	return ninvoke(xmlParser, 'parseString', xml);
+	return ninvoke(xmlParser, 'parseString', body);
 }
 
 function cleanupXml(result) {
