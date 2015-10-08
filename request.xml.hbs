@@ -20,6 +20,12 @@
 				<PrimaryProduct>
 					<Code>{{config.product}}</Code>
 				</PrimaryProduct>
+
+				{{#each config.supplementaryProducts}}
+					<SupplementaryProduct>
+						<Code>{{this}}</Code>
+					</SupplementaryProduct>
+				{{/each}}
 			</Request>
 		</EnquiryRequest>
 	</soap:Body>
