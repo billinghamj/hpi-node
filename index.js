@@ -15,22 +15,24 @@ const xmlParser = new XML2JS.Parser({
 });
 
 module.exports = function (reg, config) {
-	const query = serialise(reg, config);
-
-	return Promise.resolve({
-		method: 'POST',
-		uri: config.url,
-		body: query,
-	})
-	.then(makeRequest)
+	return makeRequest(reg, config)
 	.then(handleResponse)
 	.then(parseXml)
 	.then(cleanupXml)
 	.then(processSoapResponse);
 };
 
-function makeRequest(options) {
-	return ninvoke(Request, null, options);
+function makeRequest(reg, config) {
+	const request = genRequest({
+		query: { vrm: reg },
+		config: config,
+	});
+
+	return ninvoke(Request, null, {
+		method: 'POST',
+		uri: config.url,
+		body: request,
+	});
 }
 
 function handleResponse(response) {
@@ -91,13 +93,6 @@ function processSoapResponse(response) {
 		throw new Error('warning ' + warning.code + ': ' + warning.description);
 
 	return asset;
-}
-
-function serialise(reg, config) {
-	return genRequest({
-		query: { vrm: reg },
-		config: config,
-	});
 }
 
 function ninvoke(obj, method) {
