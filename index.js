@@ -7,6 +7,13 @@ const Handlebars = require('handlebars');
 const tplPath = path.join(__dirname, 'request.xml.hbs');
 const genRequest = Handlebars.compile(fs.readFileSync(tplPath, 'utf8'));
 
+const xmlParser = new XML2JS.Parser({
+	ignoreAttrs: true,
+	emptyTag: void 0,
+	tagNameProcessors: [XML2JS.processors.stripPrefix, XML2JS.processors.firstCharLowerCase],
+	valueProcessors: [XML2JS.processors.parseNumbers, XML2JS.processors.parseBooleans],
+});
+
 module.exports = function (reg, config) {
 	const query = serialise(reg, config);
 
@@ -52,12 +59,7 @@ function handleResponse(response) {
 
 function parseXml(xml) {
 	return new Promise(function (resolve, reject) {
-		XML2JS.parseString(xml, {
-			ignoreAttrs: true,
-			emptyTag: void 0,
-			tagNameProcessors: [XML2JS.processors.stripPrefix, XML2JS.processors.firstCharLowerCase],
-			valueProcessors: [XML2JS.processors.parseNumbers, XML2JS.processors.parseBooleans],
-		}, function (error, result) {
+		xmlParser.parseString(xml, function (error, result) {
 			if (error) reject(error);
 			else resolve(result);
 		});
