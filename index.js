@@ -36,9 +36,9 @@ function handleResponse(response) {
 
 	if (status >= 300) {
 		if (body.indexOf('VRM is invalid') !== -1)
-			throw new Error('VRM is invalid');
+			throw new Error('invalid vrm');
 
-		throw new Error('HPI returned status code ' + status, body);
+		throw new Error('status code ' + status + ': ' + JSON.stringify(body));
 	}
 
 	return body;
@@ -70,7 +70,7 @@ function processSoapResponse(response) {
 	const body = tryGet(response, 'Envelope.Body');
 
 	if (!body)
-		throw new Error('invalid soap response: ' + JSON.stringify(response));
+		throw new Error('invalid response: ' + JSON.stringify(response));
 
 	const fault = tryGet(body, 'Fault');
 	const results = tryGet(body, 'EnquiryResponse.RequestResults');
@@ -79,7 +79,7 @@ function processSoapResponse(response) {
 		const info = tryGet(fault, 'detail.HpiSoapFault.Error');
 
 		if (!info)
-			throw new Error('unknown soap fault: ' + JSON.stringify(fault));
+			throw new Error('fault unknown: ' + JSON.stringify(fault));
 
 		throw new Error('fault ' + info.Code + ': ' + info.Description);
 	}
