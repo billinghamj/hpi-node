@@ -30,17 +30,7 @@ module.exports = function (reg, config) {
 };
 
 function makeRequest(options) {
-	return new Promise(function (resolve, reject) {
-		Request(options, function (error, response, body) {
-			if (error) {
-				reject(error);
-				return;
-			}
-
-			response.body = body;
-			resolve(response);
-		});
-	});
+	return ninvoke(Request, null, options);
 }
 
 function handleResponse(response) {
@@ -58,12 +48,7 @@ function handleResponse(response) {
 }
 
 function parseXml(xml) {
-	return new Promise(function (resolve, reject) {
-		xmlParser.parseString(xml, function (error, result) {
-			if (error) reject(error);
-			else resolve(result);
-		});
-	});
+	return ninvoke(xmlParser, 'parseString', xml);
 }
 
 function cleanupXml(result) {
@@ -112,6 +97,20 @@ function serialise(reg, config) {
 	return genRequest({
 		query: { vrm: reg },
 		config: config,
+	});
+}
+
+function ninvoke(obj, method) {
+	const args = Array.prototype.slice.call(arguments, 2);
+	const func = method ? obj[method] : obj;
+
+	return new Promise(function (resolve, reject) {
+		args.push(function (error, result) {
+			if (error) reject(error);
+			else resolve(result);
+		});
+
+		func.apply(obj, args);
 	});
 }
 
