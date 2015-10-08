@@ -46,7 +46,12 @@ function handleResponse(response) {
 
 function parseXml(xml) {
 	return new Promise(function (resolve, reject) {
-		XML2JS.parseString(xml, function (error, result) {
+		XML2JS.parseString(xml, {
+			ignoreAttrs: true,
+			emptyTag: void 0,
+			tagNameProcessors: [XML2JS.processors.stripPrefix],
+			valueProcessors: [XML2JS.processors.parseNumbers, XML2JS.processors.parseBooleans],
+		}, function (error, result) {
 			if (error) reject(error);
 			else resolve(result);
 		});
@@ -124,13 +129,12 @@ function cleanXmlNode(dirtyNode, cleanNode, cleanParent, parentProp) {
 	if (dirtyNode instanceof Array)
 		dirtyNode = dirtyNode[0];
 
-	if (typeof dirtyNode === 'string')
+	if (typeof dirtyNode !== 'object')
 		return (cleanParent[parentProp] = dirtyNode);
 
 	for (var prop in dirtyNode) {
-		const cleanProp = prop.split(':')[1] || prop; // remove namespaces
-		cleanNode[cleanProp] = {};
-		cleanXmlNode(dirtyNode[prop], cleanNode[cleanProp], cleanNode, cleanProp);
+		cleanNode[prop] = {};
+		cleanXmlNode(dirtyNode[prop], cleanNode[prop], cleanNode, prop);
 	}
 }
 
