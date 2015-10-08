@@ -14,17 +14,21 @@ const xmlParser = new XML2JS.Parser({
 	valueProcessors: [XML2JS.processors.parseNumbers, XML2JS.processors.parseBooleans],
 });
 
-module.exports = function (reg, config) {
-	return makeRequest(reg, config)
+exports.query = function (query, config) {
+	return makeRequest(query, config)
 	.then(handleResponse)
 	.then(parseXml)
 	.then(cleanupXml)
 	.then(processSoapResponse);
 };
 
-function makeRequest(reg, config) {
+exports.queryVrm = function (vrm, config) {
+	return exports.query({ vrm: vrm }, config);
+};
+
+function makeRequest(query, config) {
 	const request = genRequest({
-		query: { vrm: reg },
+		query: query,
 		config: config,
 	});
 
