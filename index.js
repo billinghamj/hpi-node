@@ -10,7 +10,7 @@ const genRequest = Handlebars.compile(fs.readFileSync(tplPath, 'utf8'));
 const xmlParser = new XML2JS.Parser({
 	ignoreAttrs: true,
 	emptyTag: void 0,
-	tagNameProcessors: [XML2JS.processors.stripPrefix, XML2JS.processors.firstCharLowerCase],
+	tagNameProcessors: [XML2JS.processors.stripPrefix, normalizeTagName],
 	valueProcessors: [XML2JS.processors.parseNumbers, XML2JS.processors.parseBooleans],
 });
 
@@ -115,6 +115,20 @@ function ninvoke(obj, method) {
 
 		func.apply(obj, args);
 	});
+}
+
+// could be more efficient?
+function normalizeTagName(name) {
+	return name
+	.replace(/([a-z])([A-Z])/g, '$1 $2')
+	.replace(/([A-Z])([a-z])/g, ' $1$2')
+	.split(' ')
+	.filter(function (s) { return !!s; })
+	.reduce(function (a, b, i) {
+		if (i === 0)
+			return a + b.toLowerCase();
+		return a + b.charAt(0).toUpperCase() + b.slice(1).toLowerCase();
+	}, '');
 }
 
 function cleanXmlNode(dirtyNode, cleanNode, cleanParent, parentProp) {
