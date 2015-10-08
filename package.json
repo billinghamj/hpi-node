@@ -1,25 +1,26 @@
 {
-  "name": "hpi",
-  "version": "0.2.6",
-  "description": "Super basic API client for HPI's automotive checks",
-  "main": "index.js",
-  "scripts": {
-    "test": "mocha test"
-  },
-  "license": "BSD-2-Clause",
-  "dependencies": {
-    "request": "~2.33.0",
-    "xml2js": "~0.4.1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/riskpenguin/node-hpi.git"
-  },
-  "author": "Richard Marr",
-  "bugs": {
-    "url": "https://github.com/riskpenguin/node-hpi/issues"
-  },
-  "devDependencies": {
-    "mocha": "^1.18.2"
-  }
+	"name": "@billinghamj/hpi",
+	"version": "0.1.0",
+	"description": "Super basic API client for HPI's automotive checks",
+	"homepage": "https://github.com/billinghamj/hpi-node",
+	"bugs": "https://github.com/billinghamj/hpi-node/issues",
+
+	"license": "BSD-2-Clause",
+	"author": "Richard Marr",
+
+	"main": "index.js",
+
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/billinghamj/hpi-node.git"
+	},
+
+	"dependencies": {
+		"request": "^2.33.0",
+		"xml2js": "^0.4.1"
+	},
+
+	"engines": {
+		"node": "^4.0.0"
+	}
 }
