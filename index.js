@@ -49,7 +49,7 @@ function parseXml(xml) {
 		XML2JS.parseString(xml, {
 			ignoreAttrs: true,
 			emptyTag: void 0,
-			tagNameProcessors: [XML2JS.processors.stripPrefix],
+			tagNameProcessors: [XML2JS.processors.stripPrefix, XML2JS.processors.firstCharLowerCase],
 			valueProcessors: [XML2JS.processors.parseNumbers, XML2JS.processors.parseBooleans],
 		}, function (error, result) {
 			if (error) reject(error);
@@ -70,32 +70,32 @@ function cleanupXml(result) {
 }
 
 function processSoapResponse(response) {
-	const body = tryGet(response, 'Envelope.Body');
+	const body = tryGet(response, 'envelope.body');
 
 	if (!body)
 		throw new Error('invalid response: ' + JSON.stringify(response));
 
-	const fault = tryGet(body, 'Fault');
-	const results = tryGet(body, 'EnquiryResponse.RequestResults');
+	const fault = tryGet(body, 'fault');
+	const results = tryGet(body, 'enquiryResponse.requestResults');
 
 	if (fault) {
-		const info = tryGet(fault, 'detail.HpiSoapFault.Error');
+		const info = tryGet(fault, 'detail.hpiSoapFault.error');
 
 		if (!info)
 			throw new Error('fault unknown: ' + JSON.stringify(fault));
 
-		throw new Error('fault ' + info.Code + ': ' + info.Description);
+		throw new Error('fault ' + info.code + ': ' + info.description);
 	}
 
 	if (!results)
 		throw new Error('missing results: ' + JSON.stringify(body));
 
-	const warning = tryGet(results, 'Warning');
-	const asset = tryGet(results, 'Asset');
+	const warning = tryGet(results, 'warning');
+	const asset = tryGet(results, 'asset');
 
 	// currently treating warnings as fatal
 	if (warning)
-		throw new Error('warning ' + warning.Code + ': ' + warning.Description);
+		throw new Error('warning ' + warning.code + ': ' + warning.description);
 
 	return asset;
 }
