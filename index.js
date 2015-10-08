@@ -104,7 +104,7 @@ function serialise(reg, config) {
 	return [
 		'<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">',
 			'<soap:Body>',
-				'<EnquiryRequest xmlns="http://webservices.hpi.co.uk/CoreEnquiryV1">',
+				'<EnquiryRequest xmlns="', config.action, '">',
 					'<Authentication>',
 						'<SubscriberDetails>',
 							'<CustomerCode>', config.customer, '</CustomerCode>',
