@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+	<soap:Body>
+		<EnquiryRequest xmlns="{{config.action}}">
+			<Authentication>
+				<SubscriberDetails>
+					<CustomerCode>{{config.customer}}</CustomerCode>
+					<Initials>{{config.initials}}</Initials>
+					<Password>{{config.password}}</Password>
+				</SubscriberDetails>
+			</Authentication>
+
+			<Request>
+				<Asset>
+					<Vrm>{{query.vrm}}</Vrm>
+				</Asset>
+
+				<PrimaryProduct>
+					<Code>{{config.product}}</Code>
+				</PrimaryProduct>
+			</Request>
+		</EnquiryRequest>
+	</soap:Body>
+</soap:Envelope>

@@ -1,5 +1,11 @@
+const fs = require('fs');
+const path = require('path');
 const XML2JS = require('xml2js');
 const Request = require('request');
+const Handlebars = require('handlebars');
+
+const tplPath = path.join(__dirname, 'request.xml.hbs');
+const genRequest = Handlebars.compile(fs.readFileSync(tplPath, 'utf8'));
 
 module.exports = function (reg, config) {
 	const query = serialise(reg, config);
@@ -101,28 +107,10 @@ function processSoapResponse(response) {
 }
 
 function serialise(reg, config) {
-	return [
-		'<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">',
-			'<soap:Body>',
-				'<EnquiryRequest xmlns="', config.action, '">',
-					'<Authentication>',
-						'<SubscriberDetails>',
-							'<CustomerCode>', config.customer, '</CustomerCode>',
-							'<Initials>', config.initials, '</Initials>',
-							'<Password>', config.password, '</Password>',
-						'</SubscriberDetails>',
-					'</Authentication>',
-					'<Request>',
-						'<Asset>',
-							'<Vrm>', reg, '</Vrm>',
-						'</Asset>',
-						'<PrimaryProduct>',
-							'<Code>', config.product, '</Code>',
-						'</PrimaryProduct>',
-					'</Request>',
-				'</EnquiryRequest>',
-			'</soap:Body>',
-		'</soap:Envelope>'].join('');
+	return genRequest({
+		query: { vrm: reg },
+		config: config,
+	});
 }
 
 function cleanXmlNode(dirtyNode, cleanNode, cleanParent, parentProp) {
