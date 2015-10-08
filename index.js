@@ -17,8 +17,7 @@ const xmlParser = new XML2JS.Parser({
 exports.query = function (query, config) {
 	return makeRequest(query, config)
 	.then(handleResponse)
-	.then(cleanupXml)
-	.then(processSoapResponse);
+	.then(processSoapResult);
 };
 
 exports.queryVrm = function (vrm, config) {
@@ -46,14 +45,16 @@ function handleResponse(response) {
 	const status = response.statusCode;
 	const body = response.body || '';
 
-	if (status >= 300) {
-		if (body.indexOf('VRM is invalid') !== -1)
-			throw new Error('invalid vrm');
-
-		throw new Error('status code ' + status + ': ' + JSON.stringify(body));
-	}
-
-	return ninvoke(xmlParser, 'parseString', body);
+	return ninvoke(xmlParser, 'parseString', body)
+	.then(cleanupXml)
+	.then(function (result) {
+		const body = tryGet(result, 'envelope.body');
+		if (!body) throw new Error();
+		return body;
+	})
+	.catch(function () {
+		throw new Error('status code ' + status + ': ' + body);
+	});
 }
 
 function cleanupXml(result) {
@@ -67,12 +68,7 @@ function cleanupXml(result) {
 	return clean;
 }
 
-function processSoapResponse(response) {
-	const body = tryGet(response, 'envelope.body');
-
-	if (!body)
-		throw new Error('invalid response: ' + JSON.stringify(response));
-
+function processSoapResult(body) {
 	const fault = tryGet(body, 'fault');
 	const results = tryGet(body, 'enquiryResponse.requestResults');
 
