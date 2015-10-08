@@ -26,6 +26,10 @@ exports.queryVrm = function (vrm, config) {
 	return exports.query({ vrm: vrm }, config);
 };
 
+exports.queryVin = function (vin, config) {
+	return exports.query({ vin: vin }, config);
+};
+
 function makeRequest(query, config) {
 	const request = genRequest({
 		query: query,
