@@ -1,22 +1,6 @@
 const XmlParser = require('xml2js').Parser;
 const Request = require('request');
 
-function get(obj, fields) {
-	if (!obj)
-		return null;
-
-	const props = fields.split('.');
-
-	for (var i in props) {
-		obj = obj[props[i]];
-
-		if (!obj)
-			return null;
-	}
-
-	return obj;
-}
-
 module.exports = function (reg, config) {
 	const query = serialise(reg, config);
 
@@ -49,31 +33,6 @@ function handleResponse(response) {
 		throw new Error('VRM is invalid');
 
 	throw new Error('HPI returned status code ' + status, body);
-}
-
-function serialise(reg, config) {
-	return [
-		'<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">',
-			'<soap:Body>',
-				'<EnquiryRequest xmlns="http://webservices.hpi.co.uk/CoreEnquiryV1">',
-					'<Authentication>',
-						'<SubscriberDetails>',
-							'<CustomerCode>', config.customer, '</CustomerCode>',
-							'<Initials>', config.initials, '</Initials>',
-							'<Password>', config.password, '</Password>',
-						'</SubscriberDetails>',
-					'</Authentication>',
-					'<Request>',
-						'<Asset>',
-							'<Vrm>', reg, '</Vrm>',
-						'</Asset>',
-						'<PrimaryProduct>',
-							'<Code>', config.product, '</Code>',
-						'</PrimaryProduct>',
-					'</Request>',
-				'</EnquiryRequest>',
-			'</soap:Body>',
-		'</soap:Envelope>'].join('');
 }
 
 function parse(raw) {
@@ -119,6 +78,31 @@ function parse(raw) {
   });
 }
 
+function serialise(reg, config) {
+	return [
+		'<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">',
+			'<soap:Body>',
+				'<EnquiryRequest xmlns="http://webservices.hpi.co.uk/CoreEnquiryV1">',
+					'<Authentication>',
+						'<SubscriberDetails>',
+							'<CustomerCode>', config.customer, '</CustomerCode>',
+							'<Initials>', config.initials, '</Initials>',
+							'<Password>', config.password, '</Password>',
+						'</SubscriberDetails>',
+					'</Authentication>',
+					'<Request>',
+						'<Asset>',
+							'<Vrm>', reg, '</Vrm>',
+						'</Asset>',
+						'<PrimaryProduct>',
+							'<Code>', config.product, '</Code>',
+						'</PrimaryProduct>',
+					'</Request>',
+				'</EnquiryRequest>',
+			'</soap:Body>',
+		'</soap:Envelope>'].join('');
+}
+
 function xmlCleanup(dirtyNode, cleanNode, cleanParent, parentProp) {
 	if (dirtyNode instanceof Array)
 		dirtyNode = dirtyNode[0];
@@ -131,4 +115,20 @@ function xmlCleanup(dirtyNode, cleanNode, cleanParent, parentProp) {
 		cleanNode[cleanProp] = {};
 		xmlCleanup(dirtyNode[prop], cleanNode[cleanProp], cleanNode, cleanProp);
 	}
+}
+
+function get(obj, fields) {
+	if (!obj)
+		return null;
+
+	const props = fields.split('.');
+
+	for (var i in props) {
+		obj = obj[props[i]];
+
+		if (!obj)
+			return null;
+	}
+
+	return obj;
 }
