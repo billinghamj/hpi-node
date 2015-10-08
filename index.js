@@ -26,13 +26,14 @@ function handleResponse(response) {
 	const status = response.statusCode;
 	const body = response.body;
 
-	if (status >= 200 && status < 300)
-		return parse(body);
+	if (status >= 300) {
+		if (body && body.indexOf('VRM is invalid') !== -1)
+			throw new Error('VRM is invalid');
 
-	if (body && body.indexOf('VRM is invalid') !== -1)
-		throw new Error('VRM is invalid');
+		throw new Error('HPI returned status code ' + status, body);
+	}
 
-	throw new Error('HPI returned status code ' + status, body);
+	return parse(body);
 }
 
 function parse(raw) {
