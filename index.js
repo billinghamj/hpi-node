@@ -1,4 +1,4 @@
-const XmlParser = require('xml2js').Parser;
+const XML2JS = require('xml2js');
 const Request = require('request');
 
 module.exports = function (reg, config) {
@@ -45,10 +45,8 @@ function handleResponse(response) {
 }
 
 function parseXml(xml) {
-	const parser = new XmlParser();
-
 	return new Promise(function (resolve, reject) {
-		parser.parseString(xml, function (error, result) {
+		XML2JS.parseString(xml, function (error, result) {
 			if (error) reject(error);
 			else resolve(result);
 		});
