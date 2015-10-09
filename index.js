@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const http = require('http');
 const XML2JS = require('xml2js');
 const Request = require('request');
 const Handlebars = require('handlebars');
@@ -53,7 +54,9 @@ function handleResponse(response) {
 		return body;
 	})
 	.catch(function () {
-		throw new Error('status code ' + status + ': ' + body);
+		const codeFriendly = http.STATUS_CODES[status] || 'Unknown';
+
+		throw new Error('HTTP ' + status + ': ' + codeFriendly);
 	});
 }
 
