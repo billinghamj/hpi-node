@@ -1,6 +1,6 @@
 {
 	"name": "@billinghamj/hpi",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Super basic API client for HPI's automotive checks",
 	"homepage": "https://github.com/billinghamj/hpi-node",
 	"bugs": "https://github.com/billinghamj/hpi-node/issues",
