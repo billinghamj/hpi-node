@@ -84,12 +84,12 @@ function processSoapResult(body) {
 	if (!results)
 		throw new Error('missing results: ' + JSON.stringify(body));
 
-	const warning = tryGet(results, 'warning');
+	const warn = tryGet(results, 'warning');
 	const asset = tryGet(results, 'asset');
 
 	// currently treating warnings as fatal
-	if (warning)
-		throw new Error('warning ' + warning.code + ': ' + warning.description);
+	if (warn)
+		throw new Error('warning ' + warn.code + ': ' + warn.description);
 
 	return asset;
 }
