@@ -55,8 +55,13 @@ function handleResponse(response) {
 	})
 	.catch(function () {
 		const codeFriendly = http.STATUS_CODES[status] || 'Unknown';
+		const codeStr = codeFriendly.toLowerCase().replace(/\s+/g, '_');
 
-		throw new Error('HTTP ' + status + ': ' + codeFriendly);
+		const error = new Error('HTTP ' + status + ': ' + codeFriendly);
+		error.code = codeStr;
+		error.statusCode = status;
+		error.meta = { httpStatus: status, data: body };
+		throw error;
 	});
 }
 
@@ -75,24 +80,41 @@ function processSoapResult(body) {
 	const fault = tryGet(body, 'fault');
 	const results = tryGet(body, 'enquiryResponse.requestResults');
 
+	var error;
+
 	if (fault) {
 		const info = tryGet(fault, 'detail.hpiSoapFault.error');
 
-		if (!info)
-			throw new Error('fault unknown: ' + JSON.stringify(fault));
+		if (!info) {
+			error = new Error('fault unknown: ' + JSON.stringify(fault));
+			error.code = 'fault_unknown';
+			error.meta = fault;
+			throw error;
+		}
 
-		throw new Error('fault ' + info.code + ': ' + info.description);
+		error = new Error('fault ' + info.code + ': ' + info.description);
+		error.code = 'fault_' + info.code;
+		error.meta = info;
+		throw error;
 	}
 
-	if (!results)
-		throw new Error('missing results: ' + JSON.stringify(body));
+	if (!results) {
+		error = new Error('missing results: ' + JSON.stringify(body));
+		error.code = 'missing_results';
+		error.meta = body;
+		throw error;
+	}
 
 	const warn = tryGet(results, 'warning');
 	const asset = tryGet(results, 'asset');
 
 	// currently treating warnings as fatal
-	if (warn)
-		throw new Error('warning ' + warn.code + ': ' + warn.description);
+	if (warn) {
+		error = new Error('warning ' + warn.code + ': ' + warn.description);
+		error.code = 'warning_' + warn.code;
+		error.meta = warn;
+		throw error;
+	}
 
 	return asset;
 }
