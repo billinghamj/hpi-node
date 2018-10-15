@@ -13,8 +13,9 @@
 
 			<Request>
 				<Asset>
-					<Vrm>{{query.vrm}}</Vrm>
-					<Vin>{{query.vin}}</Vin>
+                    {{#each query}}
+					    <{{@key}}>{{this}}</{{@key}}>
+                    {{/each}}
 				</Asset>
 
 				<PrimaryProduct>

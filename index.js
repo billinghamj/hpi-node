@@ -22,11 +22,11 @@ exports.query = function (query, config) {
 };
 
 exports.queryVrm = function (vrm, config) {
-	return exports.query({ vrm: vrm }, config);
+	return exports.query({ Vrm: vrm }, config);
 };
 
 exports.queryVin = function (vin, config) {
-	return exports.query({ vin: vin }, config);
+	return exports.query({ Vin: vin }, config);
 };
 
 function makeRequest(query, config) {
